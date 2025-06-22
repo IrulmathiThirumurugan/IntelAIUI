@@ -50,6 +50,29 @@ export async function copyToClipboard(text: string) {
   }
 }
 
+// export async function copyMessageContent(message: string) {
+//   // Try to match markdown image: ![alt](url)
+//   const match = message.match(/!\[.*?\]\((.*?)\)/);
+//   if (match) {
+//     const imageUrl = match[1];
+//     try {
+//       const response = await fetch(imageUrl);
+//       const blob = await response.blob();
+//       await navigator.clipboard.write([
+//         new window.ClipboardItem({ [blob.type]: blob }),
+//       ]);
+//       // Optionally show a toast or notification
+//       showToast("Image copied to clipboard!");
+//       return;
+//     } catch (e) {
+//       // Optionally show a toast or notification
+//       // showToast("Failed to copy image.");
+//     }
+//   }
+//   // Fallback: copy as text
+//   await copyToClipboard(message);
+// }
+
 export async function copyMessageContent(message: string) {
   // Try to match markdown image: ![alt](url)
   const match = message.match(/!\[.*?\]\((.*?)\)/);
@@ -61,12 +84,19 @@ export async function copyMessageContent(message: string) {
       await navigator.clipboard.write([
         new window.ClipboardItem({ [blob.type]: blob }),
       ]);
-      // Optionally show a toast or notification
-      // showToast("Image copied to clipboard!");
+      // Download the image as well
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "copied-image.png";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Image copied! Open the downloaded file in MS Paint.");
       return;
     } catch (e) {
-      // Optionally show a toast or notification
-      // showToast("Failed to copy image.");
+      showToast("Failed to copy image.");
     }
   }
   // Fallback: copy as text

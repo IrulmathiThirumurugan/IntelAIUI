@@ -9,10 +9,10 @@ import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
 import { getServerSideConfig } from "./config/server";
 
 export const metadata: Metadata = {
-  title: "IntelAIPlayground",
+  title: "WiproAIPlayground",
   description: "Intel powered AI application.",
   appleWebApp: {
-    title: "IntelAIPlayground",
+    title: "WiproAIPlayground",
     statusBarStyle: "default",
   },
 };

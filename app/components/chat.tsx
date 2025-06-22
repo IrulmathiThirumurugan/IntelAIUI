@@ -918,7 +918,7 @@ function _Chat() {
 
     try {
       const res = await fetch(
-        "https://scorpion-loved-pheasant.ngrok-free.app/generateDataFlowDiagram",
+        "http://127.0.0.1:8000/generateDataFlowDiagramsss",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1764,12 +1764,12 @@ function _Chat() {
     setAttachImages(images);
   }
 
-  // 快捷键 shortcut keys
+  // shortcut keys
   const [showShortcutKeyModal, setShowShortcutKeyModal] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // 打开新聊天 command + shift + o
+      // command + shift + o
       if (
         (event.metaKey || event.ctrlKey) &&
         event.shiftKey &&
@@ -1781,12 +1781,10 @@ function _Chat() {
           navigate(Path.Chat);
         }, 10);
       }
-      // 聚焦聊天输入 shift + esc
       else if (event.shiftKey && event.key.toLowerCase() === "escape") {
         event.preventDefault();
         inputRef.current?.focus();
       }
-      // 复制最后一个代码块 command + shift + ;
       else if (
         (event.metaKey || event.ctrlKey) &&
         event.shiftKey &&
